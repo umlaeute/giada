@@ -175,6 +175,7 @@ list(APPEND SOURCES
 	src/gui/elems/config/tabAudio.cpp
 	src/gui/elems/config/tabBehaviors.cpp
 	src/gui/elems/config/tabPlugins.cpp
+	src/gui/elems/config/tabBindings.cpp
 	src/gui/elems/basics/scroll.cpp
 	src/gui/elems/basics/pack.cpp
 	src/gui/elems/basics/group.cpp

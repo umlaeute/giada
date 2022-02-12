@@ -38,8 +38,9 @@ extern giada::v::Ui g_ui;
 
 namespace giada::v
 {
-Dispatcher::Dispatcher()
-: m_backspace(false)
+Dispatcher::Dispatcher(const m::Conf::Data::KeyBindings& k)
+: m_keyBindings(k)
+, m_backspace(false)
 , m_end(false)
 , m_enter(false)
 , m_space(false)
@@ -54,6 +55,7 @@ void Dispatcher::perform(ID channelId, int event) const
 {
 	if (event == FL_KEYDOWN)
 	{
+		printf("%d %d\n", Fl::event_key(), Fl::event_state() & m_keyBindings.killChannel);
 		if (Fl::event_ctrl())
 			c::events::toggleMuteChannel(channelId, Thread::MAIN);
 		else if (Fl::event_shift())
@@ -89,27 +91,27 @@ void Dispatcher::dispatchKey(int event)
 
 	if (event == FL_KEYDOWN)
 	{
-		if (Fl::event_key() == FL_BackSpace && !m_backspace)
+		if (Fl::event_key() == m_keyBindings.rewindSeq && !m_backspace)
 		{
 			m_backspace = true;
 			c::events::rewindSequencer(Thread::MAIN);
 		}
-		else if (Fl::event_key() == FL_End && !m_end)
+		else if (Fl::event_key() == m_keyBindings.recordActions && !m_end)
 		{
 			m_end = true;
 			c::events::toggleInputRecording();
 		}
-		else if (Fl::event_key() == FL_Enter && !m_enter)
+		else if (Fl::event_key() == m_keyBindings.recordInput && !m_enter)
 		{
 			m_enter = true;
 			c::events::toggleActionRecording();
 		}
-		else if (Fl::event_key() == ' ' && !m_space)
+		else if (Fl::event_key() == m_keyBindings.play && !m_space)
 		{
 			m_space = true;
 			c::events::toggleSequencer(Thread::MAIN);
 		}
-		else if (Fl::event_key() == FL_Escape && !m_esc)
+		else if (Fl::event_key() == m_keyBindings.exit && !m_esc)
 		{
 			m_esc = true;
 			m::init::closeMainWindow();
@@ -123,15 +125,15 @@ void Dispatcher::dispatchKey(int event)
 	}
 	else if (event == FL_KEYUP)
 	{
-		if (Fl::event_key() == FL_BackSpace)
+		if (Fl::event_key() == m_keyBindings.rewindSeq)
 			m_backspace = false;
-		else if (Fl::event_key() == FL_End)
+		else if (Fl::event_key() == m_keyBindings.recordActions)
 			m_end = false;
-		else if (Fl::event_key() == ' ')
+		else if (Fl::event_key() == m_keyBindings.play)
 			m_space = false;
-		else if (Fl::event_key() == FL_Enter)
+		else if (Fl::event_key() == m_keyBindings.recordInput)
 			m_enter = false;
-		else if (Fl::event_key() == FL_Escape)
+		else if (Fl::event_key() == m_keyBindings.exit)
 			m_esc = false;
 		else
 		{

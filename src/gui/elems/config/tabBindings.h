@@ -24,16 +24,26 @@
  *
  * -------------------------------------------------------------------------- */
 
-#include "core/engine.h"
-#include "gui/ui.h"
+#ifndef GE_CONFIG_TAB_BINDINGS_H
+#define GE_CONFIG_TAB_BINDINGS_H
 
-giada::m::Engine g_engine;
-giada::v::Ui     g_ui(g_engine.recorder, g_engine.conf.data);
+#include <FL/Fl_Group.H>
 
-int main(int argc, char** argv)
+class geCheck;
+class geInput;
+
+namespace giada::v
 {
-	if (int ret = giada::m::init::tests(argc, argv); ret != -1)
-		return ret;
-	giada::m::init::startup(argc, argv);
-	return giada::m::init::run();
-}
+class geButton;
+class geTabBindings : public Fl_Group
+{
+public:
+	geTabBindings(int x, int y, int w, int h);
+
+	void save();
+
+private:
+};
+} // namespace giada::v
+
+#endif

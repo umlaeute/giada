@@ -133,6 +133,16 @@ public:
 		int pluginSortMethod = 0;
 
 #endif
+		struct KeyBindings
+		{
+			int play          = ' ';
+			int recordActions = FL_Enter;
+			int recordInput   = FL_End;
+			int rewindSeq     = FL_BackSpace;
+			int exit          = FL_Escape;
+			int muteChannel   = FL_Control_L;
+			int killChannel   = FL_Shift_L;
+		} keyBindings;
 	};
 
 	Conf();

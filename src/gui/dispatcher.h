@@ -27,6 +27,7 @@
 #ifndef G_V_DISPATCHER_H
 #define G_V_DISPATCHER_H
 
+#include "core/conf.h"
 #include "core/types.h"
 #include <functional>
 
@@ -36,7 +37,7 @@ class geChannel;
 class Dispatcher final
 {
 public:
-	Dispatcher();
+	Dispatcher(const m::Conf::Data::KeyBindings&);
 
 	/* dispatchKey
     Processes a key pressed on the physical keyboard. */
@@ -61,6 +62,8 @@ private:
     found, trigger the key-press/key-release function. */
 
 	void dispatchChannels(int event) const;
+
+	const m::Conf::Data::KeyBindings& m_keyBindings;
 
 	bool m_backspace;
 	bool m_end;

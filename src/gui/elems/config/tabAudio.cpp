@@ -112,7 +112,7 @@ void geTabAudio::geChannelMenu::rebuild(const c::config::AudioDeviceData& data)
 /* -------------------------------------------------------------------------- */
 
 geTabAudio::geTabAudio(int X, int Y, int W, int H)
-: Fl_Group(X, Y, W, H, "Sound System")
+: Fl_Group(X, Y, W, H, "Audio")
 , m_data(c::config::getAudioData())
 , m_initialApi(m_data.api)
 {

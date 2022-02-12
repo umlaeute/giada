@@ -24,16 +24,17 @@
  *
  * -------------------------------------------------------------------------- */
 
-#include "core/engine.h"
-#include "gui/ui.h"
+#include "gui/elems/config/tabBindings.h"
+#include "core/const.h"
 
-giada::m::Engine g_engine;
-giada::v::Ui     g_ui(g_engine.recorder, g_engine.conf.data);
-
-int main(int argc, char** argv)
+namespace giada::v
 {
-	if (int ret = giada::m::init::tests(argc, argv); ret != -1)
-		return ret;
-	giada::m::init::startup(argc, argv);
-	return giada::m::init::run();
+geTabBindings::geTabBindings(int X, int Y, int W, int H)
+: Fl_Group(X, Y, W, H, "Key Bindings")
+{
+	end();
+
+	labelsize(G_GUI_FONT_SIZE_BASE);
+	selection_color(G_COLOR_GREY_4);
 }
+} // namespace giada::v
